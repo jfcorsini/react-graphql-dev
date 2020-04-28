@@ -9,6 +9,19 @@ const Mutations = {
     }, info);
 
     return item;
+  },
+  updateItem(parent, args, ctx, info) {
+    // TODO: Check if logged in
+
+    const updates = { ... args };
+    delete updates.id;
+
+    return ctx.db.mutation.updateItem({
+      data: updates,
+      where: {
+        id: args.id,
+      }
+    }, info);
   }
 };
 
