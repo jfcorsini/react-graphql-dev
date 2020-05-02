@@ -51,7 +51,7 @@ const Mutations = {
     args.email = args.email.toLowerCase();
     const password = await bcrypt.hash(args.password, 10);
 
-    const user = ctx.db.mutation.createUser(
+    const user = await ctx.db.mutation.createUser(
       {
         data: {
           ...args,
