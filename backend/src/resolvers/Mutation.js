@@ -18,11 +18,20 @@ const setJwtToken = (user, ctx) => {
 
 const Mutations = {
   async createItem(parent, args, ctx, info) {
-    // TODO: Check if logged in
+    const userId = ctx.request.userId;
+    if (!userId) {
+      throw new Error("You must be logged in to create item");
+    }
 
     const item = await ctx.db.mutation.createItem(
       {
         data: {
+          // Creates a relationship between item and user
+          user: {
+            connect: {
+              id: userId,
+            },
+          },
           ...args,
         },
       },
